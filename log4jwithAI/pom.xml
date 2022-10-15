@@ -25,6 +25,19 @@
         </exclusion>
     </exclusions>
     </dependency>
+    	<!-- tag::actuator[] -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<!-- end::actuator[] -->
+
+		<!-- tag::tests[] -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
     
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
@@ -47,4 +60,12 @@
          <version>[2.6,)</version> 
     </dependency>
   </dependencies>
+    	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 </project>
