@@ -17,7 +17,7 @@
     
   <Loggers>
     <Root level="INFO">
-      <AppenderRef ref="console"/>   
+      <AppenderRef ref="console" />   
       <AppenderRef ref="aiAppender"/>
     </Root>
   </Loggers>

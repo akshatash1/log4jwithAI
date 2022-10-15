@@ -41,7 +41,7 @@
         <appender-ref ref="XML"/>
     </logger>  -->
 
-	<root level="INFO">
+	<root level="DEBUG">
 		<appender-ref ref="STDOUT" /> 
 		<appender-ref ref="DATA_MASK" />
 		<appender-ref ref="aiAppender" />
