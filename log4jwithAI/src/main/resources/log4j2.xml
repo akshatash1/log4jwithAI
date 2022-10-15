@@ -5,10 +5,45 @@
     <Property name="LOG_DIR">c:/temp/logs</Property>
   </Properties>
 
+  <DynamicThresholdFilter key="USER_ROLE" defaultThreshold="ERROR" onMatch="ACCEPT" onMismatch="DENY">
+    <KeyValuePair key="ADMIN" value="INFO"/>
+    <KeyValuePair key="GUEST" value="DEBUG"/>
+  </DynamicThresholdFilter>
+
   <Appenders>
     <Console name="console" target="SYSTEM_OUT">
       <PatternLayout pattern="${LOG_PATTERN}"/>
     </Console>
+
+    <RollingFile
+      name="transactionLogs"
+      fileName="${LOG_DIR}/transactions.log"
+      filePattern="${LOG_DIR}/transactions.%d{dd-MMM}.log.gz"
+      ignoreExceptions="false">
+      <MarkerFilter marker="TRANSACTION" onMatch="ACCEPT" onMismatch="DENY"/>
+      <PatternLayout>
+        <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %m%n</Pattern>
+      </PatternLayout>
+      <Policies>
+        <TimeBasedTriggeringPolicy interval="1"/>
+      </Policies>
+      <DefaultRolloverStrategy max="5"/>
+    </RollingFile>
+
+    <RollingFile
+      name="userMgmtLogs"
+      fileName="${LOG_DIR}/user-management.log"
+      filePattern="${LOG_DIR}/user-management.%d{dd-MMM}.log.gz"
+      ignoreExceptions="false">
+      <MarkerFilter marker="USER_MGMT" onMatch="ACCEPT" onMismatch="DENY"/>
+      <PatternLayout>
+        <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %m%n</Pattern>
+      </PatternLayout>
+      <Policies>
+        <TimeBasedTriggeringPolicy interval="1"/>
+      </Policies>
+      <DefaultRolloverStrategy max="5"/>
+    </RollingFile>
 
         <ApplicationInsightsAppender
          name="aiAppender" 
@@ -16,8 +51,10 @@
     </Appenders>
     
   <Loggers>
-    <Root level="DEBUG">
-      <AppenderRef ref="console"/>    
+    <Root level="INFO">
+      <AppenderRef ref="console"/>
+      <AppenderRef ref="transactionLogs"/>
+      <AppenderRef ref="userMgmtLogs"/>      
       <AppenderRef ref="aiAppender"/>
     </Root>
   </Loggers>
